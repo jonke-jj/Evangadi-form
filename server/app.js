@@ -3,8 +3,8 @@ const express = require("express");
 const app = express();
 const PORT = 5500;
 
-const cors = require('cors')
-app.use(cors())
+const cors = require("cors");
+app.use(cors());
 
 //db connection
 const dbconnection = require("./db/dbConfige");
@@ -24,14 +24,20 @@ const authMiddleware = require("./middleware/authMiddleware");
 //json middleware to extract json data
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send({
+    message: "success",
+  });
+});
+
 //use routes middleware
 app.use("/api/users", useRoutes);
 
 //question routes middleware
-app.use("/api/questions", authMiddleware, questionRoutes)
+app.use("/api/questions", authMiddleware, questionRoutes);
 
 //answer routes middleware
-app.use("/api/answers", authMiddleware, answerRoutes)
+app.use("/api/answers", authMiddleware, answerRoutes);
 
 const start = async () => {
   try {
